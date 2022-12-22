@@ -1,0 +1,35 @@
+[package]
+name = "android_rust_jni"
+version = "0.1.0"
+authors = ["Hu Shenghao <dede.hu@qq.com>"]
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+md5 = "0.7.0"
+jni = "0.20.0"
+android_log-sys = "0.2.0"
+
+[lib]
+# This must contain at least cdylib for Android libraries to be generated.
+crate-type = ["cdylib"]
+
+# If you want your Android docs to appear on docs.rs, add one of the Android
+# triplets like this:
+# [package.metadata.docs.rs]
+# targets = [
+#     "aarch64-linux-android",
+#     "x86_64-apple-darwin",
+#     "x86_64-pc-windows-msvc",
+#     "x86_64-unknown-linux-gnu",
+# ]
+
+# An example of a custom profile
+[profile.release-space-optimized]
+inherits = "release"
+strip = true  # Automatically strip symbols from the binary.
+opt-level = "z"  # Optimize for size.
+lto = true  # Enable link time optimization
+codegen-units = 1  # Reduce parallel code generation units
+panic = "abort"
